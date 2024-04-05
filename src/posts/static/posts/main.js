@@ -5,6 +5,13 @@ const loadBtn = document.getElementById('load-btn')
 const postsBox = document.getElementById('posts-box')
 const endBox = document.getElementById('end-box')
 
+const postForm = document.getElementById('post-form')
+const title = document.getElementById('id_title')
+const body = document.getElementById('id_body')
+const csrf = document.getElementsByName('csrfmiddlewaretoken')
+
+const alertBox = document.getElementById('alert-box')
+
 const getCookie = (name) => {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -106,6 +113,51 @@ loadBtn.addEventListener('click', () => {
 	spinnerBox.classList.remove('not-visible')
 	visible += 3
 	getData()
+})
+
+postForm.addEventListener('submit', e => {
+	e.preventDefault()
+
+	$.ajax({
+		type: 'POST',
+		url: '',
+		data: {
+			'csrfmiddlewaretoken': csrf[0].value,
+			'title': title.value,
+			'body': body.value
+		},
+		success: function(response) {
+			console.log(response)
+			postsBox.insertAdjacentHTML('afterbegin', `
+				<div class="card mb-2">
+					<div class="card-body">
+						<h5 class="card-title">${response.title}</h5>
+						<p class="card-text">${response.body}</p>
+					</div>
+					<div class="card-footer">
+						<div class="row">
+							<div class="col-1">
+								<a href="#" class="btn btn-primary">Details</a>
+							</div>
+							<div class="col-1">
+								<form data-form-id="${response.id}" class="like-unlike-forms">
+									<button href="#" id="like-unlike-${response.id}" class="btn btn-primary">Like (0)</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			`)
+
+			likeUnlikePosts()
+			$('#addPostModal').modal('hide')
+			handleAlerts('success', 'New post added!')
+		},
+		error: function(error) {
+			console.log(error)
+			handleAlerts('danger', 'Oops, something went wrong!')
+		}
+	})
 })
 
 getData()
