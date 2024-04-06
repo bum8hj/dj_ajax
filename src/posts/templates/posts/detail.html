@@ -54,13 +54,13 @@
 		</div>
 	</div>
 
-	<a href="{% url 'posts:main-board' %}" id="back-btn" class="btn btn-secondary">Back</a>
+	<a href="javascript:history.back()" id="back-btn" class="btn btn-secondary">Back</a>
 	<button id="update-btn" class="btn btn-primary not-visible" data-bs-toggle="modal" data-bs-target="#updateModal">Update</button>
 	<button id="delete-btn" class="btn btn-danger not-visible" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
 	<div id="spinner-box" class="text-center">
 		<div class="spinner-border" role="status"></div>
 	</div>
-	<div class="mt-1" id="post-box"></div>
+	<div class="mt-2" id="post-box"></div>
 
 	<!-- Carousel -->
 	{% if obj.get_photos %}
@@ -68,7 +68,7 @@
 			<div class="carousel-inner">
 				{% for p in obj.get_photos %}
 					<div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
-						<img src="{{p.image.url}}" class="d-block w-100" alt="photo {{obj.pk}}">
+						<img src="{{p.image.url}}" class="d-block w-100 rounded" alt="photo {{obj.pk}}">
 					</div>
 				{% endfor %}
 			</div>

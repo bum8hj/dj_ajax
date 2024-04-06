@@ -84,9 +84,10 @@ const getData = () => {
 				console.log(data)
 				data.forEach(el => {
 					postsBox.innerHTML += `
-						<div class="card mb-2">
+						<div class="card mb-3">
 							<div class="card-body">
-								<h5 class="card-title">${el.title}</h5>
+								<a href="${url}profiles/${el.author}" class="author">${el.author}</a>
+								<h5 class="card-title"><b>${el.title}</b></h5>
 								<p class="card-text">${el.body}</p>
 							</div>
 							<div class="card-footer">
@@ -94,7 +95,7 @@ const getData = () => {
 									<div class="col-1">
 										<a href="${url}${el.id}" class="btn btn-primary">Details</a>
 									</div>
-									<div class="col-1">
+									<div class="col-2">
 										<form data-form-id="${el.id}" class="like-unlike-forms">
 											<button id="like-unlike-${el.id}" class="btn btn-primary">${(el.liked ? "Unlike" : "Like") + ` (${el.like_count})`}</button>
 										</form>
@@ -167,7 +168,7 @@ postForm.addEventListener('submit', e => {
 							<div class="col-1">
 								<a href="${url}${response.id}" class="btn btn-primary">Details</a>
 							</div>
-							<div class="col-1">
+							<div class="col-2">
 								<form data-form-id="${response.id}" class="like-unlike-forms">
 									<button id="like-unlike-${response.id}" class="btn btn-primary">Like (0)</button>
 								</form>
