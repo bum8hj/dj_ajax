@@ -11,3 +11,8 @@
 .dz:hover {
 	background-color: aliceblue !important;
 }
+
+.carousel-item {
+	object-fit: cover !important;
+	width: 100% !important;
+}
