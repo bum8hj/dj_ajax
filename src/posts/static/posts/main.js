@@ -1,6 +1,6 @@
 console.log("hello world")
 
-const DZ_MAXFILES = 5
+const DZ_MAXFILES = 3
 const DZ_MAXFILE_SIZE_MB = 4
 
 const spinnerBox = document.getElementById('spinner-box')
@@ -188,6 +188,9 @@ closeBtns.forEach(btn => btn.addEventListener('click', () => {
 	if (!dropzone.classList.contains('not-visible')) {
 		dropzone.classList.add('not-visible')
 	}
+
+	const myDropzone = Dropzone.forElement('#my-dropzone')
+	myDropzone.removeAllFiles(true)
 }))
 
 Dropzone.autoDiscover = false

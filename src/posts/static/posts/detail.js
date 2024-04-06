@@ -20,9 +20,9 @@ const bodyInput = document.getElementById('id_body')
 
 const csrf = document.getElementsByName('csrfmiddlewaretoken')
 
-backBtn.addEventListener('click', () => {
+/* backBtn.addEventListener('click', () => {
 	history.back()
-})
+}) */
 
 $.ajax({
 	type: 'GET',
