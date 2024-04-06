@@ -1,4 +1,4 @@
-console.log('hello my profile')
+//console.log('hello my profile')
 
 const avatarBox = document.getElementById('avatar-box')
 const alertBox = document.getElementById('alert-box')
@@ -23,7 +23,7 @@ profileForm.addEventListener('submit', e => {
 		enctype: 'multipart/form-data',
 		data: formData,
 		success: function(response) {
-			console.log(response)
+			//console.log(response)
 			avatarBox.innerHTML = `
 				<img src="${response.avatar}" class="rounded" height="200px" width="auto" alt="${response.user.username}">
 			`
@@ -32,7 +32,7 @@ profileForm.addEventListener('submit', e => {
 			handleAlerts('success', 'Profile updated.')
 		},
 		error: function(error) {
-			console.log(error)
+			//console.log(error)
 		},
 		processData: false,
 		contentType: false,

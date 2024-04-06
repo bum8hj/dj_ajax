@@ -9,10 +9,10 @@ def action_permission(func):
 		post = Post.objects.get(pk=pk)
 
 		if profile.user == post.author.user:
-			print('You are the author')
+			#print('You are the author')
 			return func(request, **kwargs)
 		else:
-			print('You are not the author')
+			#print('You are not the author')
 			return redirect('posts:main-board')
 
 	return wrapper

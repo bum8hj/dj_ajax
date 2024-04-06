@@ -1,4 +1,4 @@
-console.log("hello world")
+//console.log("hello world")
 
 const DZ_MAXFILES = 3
 const DZ_MAXFILE_SIZE_MB = 4
@@ -59,11 +59,11 @@ const likeUnlikePosts = () => {
 				'pk': clickedId
 			},
 			success: function(response) {
-				console.log(response)
+				//console.log(response)
 				clickedBtn.textContent = (response.liked ? "Unlike" : "Like") + ` (${response.like_count})`
 			},
 			error: function(error) {
-				console.log(error)
+				//console.log(error)
 			}
 		})
 	}))
@@ -76,12 +76,12 @@ const getData = () => {
 		type: 'GET',
 		url: `/data/${visible}/`,
 		success: function(response) {
-			console.log(response)
+			//console.log(response)
 			const data = response.data
 
 			setTimeout(() => {
 				spinnerBox.classList.add('not-visible')
-				console.log(data)
+				//console.log(data)
 				data.forEach(el => {
 					postsBox.innerHTML += `
 						<div class="card mb-3">
@@ -109,7 +109,7 @@ const getData = () => {
 				likeUnlikePosts()
 			}, 100)
 
-			console.log(response.size)
+			//console.log(response.size)
 
 			if (response.size === 0) {
 				endBox.textContent = 'No posts added yet.'
@@ -120,7 +120,7 @@ const getData = () => {
 			}
 		},
 		error: function(error) {
-			console.log(error)
+			//console.log(error)
 		}
 	})
 }
@@ -155,7 +155,7 @@ postForm.addEventListener('submit', e => {
 			'body': body.value
 		},
 		success: function(response) {
-			console.log(response)
+			//console.log(response)
 			newPostId = response.id
 			postsBox.insertAdjacentHTML('afterbegin', `
 				<div class="card mb-2">
@@ -184,7 +184,7 @@ postForm.addEventListener('submit', e => {
 			//postForm.reset()
 		},
 		error: function(error) {
-			console.log(error)
+			//console.log(error)
 			handleAlerts('danger', 'Oops, something went wrong!')
 		}
 	})

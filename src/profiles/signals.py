@@ -5,9 +5,9 @@ from django.dispatch import receiver
 
 @receiver(post_save, sender=User)
 def post_save_create_profile(sender, instance, created, *args, **kwargs):
-	print(sender)
-	print(instance)
-	print(created)
+	#print(sender)
+	#print(instance)
+	#print(created)
 	if created:
 		Profile.objects.create(user=instance)
 	else:

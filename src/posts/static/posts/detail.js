@@ -1,5 +1,5 @@
-console.log("hello world detail")
-console.log(window.location.href)
+//console.log("hello world detail")
+//console.log(window.location.href)
 
 const postBox = document.getElementById('post-box')
 const alertBox = document.getElementById('alert-box')
@@ -28,13 +28,13 @@ $.ajax({
 	type: 'GET',
 	url: url,
 	success: function(response) {
-		console.log(response)
+		//console.log(response)
 		const data = response.data
 
 		if (data.logged_in !== data.author) {
-			console.log('different')
+			//console.log('different')
 		} else {
-			console.log('the same')
+			//console.log('the same')
 			updateBtn.classList.remove('not-visible')
 			deleteBtn.classList.remove('not-visible')
 		}
@@ -65,7 +65,7 @@ $.ajax({
 		spinnerBox.classList.add('not-visible')
 	},
 	error: function(error) {
-		console.log(error)
+		//console.log(error)
 	}
 })
 
@@ -84,14 +84,14 @@ updateForm.addEventListener('submit', (e) => {
 			'body': bodyInput.value
 		},
 		success: function(response) {
-			console.log(response)
+			//console.log(response)
 			handleAlerts('success', 'Post updated.')
 
 			title.textContent = response.title
 			body.textContent = response.body
 		},
 		error: function(error) {
-			console.log(error)
+			//console.log(error)
 		}
 	})
 })
@@ -110,7 +110,7 @@ deleteForm.addEventListener('submit', (e) => {
 			localStorage.setItem('title', titleInput.value)
 		},
 		error: function(error) {
-			console.log(error)
+			//console.log(error)
 		}
 	})
 })
