@@ -5,6 +5,7 @@ from .forms import PostForm
 from profiles.models import Profile
 from .utils import action_permission
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -73,16 +74,19 @@ def load_posts_data_view(request, num_posts):
 
 @login_required
 def post_detail_data_view(request, pk):
-	obj = Post.objects.get(pk=pk)
-	data = {
-		'id': obj.id,
-		'title': obj.title,
-		'body': obj.body,
-		'author': obj.author.user.username,
-		'logged_in': request.user.username
-	}
+	if request.headers.get('x-requested-with') == 'XMLHttpRequest': # equivalent to request.is_ajax()
+		obj = Post.objects.get(pk=pk)
+		data = {
+			'id': obj.id,
+			'title': obj.title,
+			'body': obj.body,
+			'author': obj.author.user.username,
+			'logged_in': request.user.username
+		}
 
-	return JsonResponse({'data': data})
+		return JsonResponse({'data': data})
+
+	return redirect('posts:main-board')
 
 @login_required
 def like_unlike_post(request):
@@ -98,6 +102,8 @@ def like_unlike_post(request):
 			obj.liked.add(request.user)
 
 		return JsonResponse({'liked': liked, 'like_count': obj.like_count})
+
+	return redirect('posts:main-board')
 
 @login_required
 @action_permission
@@ -117,6 +123,8 @@ def update_post(request, pk):
 			'body': obj.body
 		})
 
+	return redirect('posts:main-board')
+
 @login_required
 @action_permission
 def delete_post(request, pk):
@@ -126,7 +134,7 @@ def delete_post(request, pk):
 		obj.delete()
 		return JsonResponse({'msg': 'Post deleted'})
 
-	return JsonResponse({'msg': 'Access denied, AJAX only'})
+	return redirect('posts:main-board')
 
 def image_upload_view(request):
 	# print(request.FILES)
