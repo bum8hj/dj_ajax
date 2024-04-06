@@ -69,7 +69,7 @@ const likeUnlikePosts = () => {
 	}))
 }
 
-let visible = 3
+let visible = 6
 
 const getData = () => {
 	$.ajax({
@@ -124,11 +124,22 @@ const getData = () => {
 	})
 }
 
-loadBtn.addEventListener('click', () => {
+const loadMorePosts = () => {
 	spinnerBox.classList.remove('not-visible')
 	visible += 3
 	getData()
-})
+}
+
+loadBtn.addEventListener('click', () => loadMorePosts())
+
+document.addEventListener('scroll', () => {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight - 20) {
+		if (!loadBtn.classList.contains('not-visible')) {
+			loadMorePosts()
+		}
+    }
+});
 
 let newPostId = null
 postForm.addEventListener('submit', e => {

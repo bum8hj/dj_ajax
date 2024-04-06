@@ -48,7 +48,7 @@ def post_detail(request, pk):
 @login_required
 def load_posts_data_view(request, num_posts):
 	if request.headers.get('x-requested-with') == 'XMLHttpRequest': # equivalent to request.is_ajax()
-		visible = 3
+		visible = 6
 		upper = num_posts
 		lower = upper - visible
 		size = Post.objects.all().count()
