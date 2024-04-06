@@ -1,5 +1,8 @@
 console.log("hello world")
 
+const DZ_MAXFILES = 5
+const DZ_MAXFILE_SIZE_MB = 4
+
 const spinnerBox = document.getElementById('spinner-box')
 const loadBtn = document.getElementById('load-btn')
 const postsBox = document.getElementById('posts-box')
@@ -93,7 +96,7 @@ const getData = () => {
 									</div>
 									<div class="col-1">
 										<form data-form-id="${el.id}" class="like-unlike-forms">
-											<button href="#" id="like-unlike-${el.id}" class="btn btn-primary">${(el.liked ? "Unlike" : "Like") + ` (${el.like_count})`}</button>
+											<button id="like-unlike-${el.id}" class="btn btn-primary">${(el.liked ? "Unlike" : "Like") + ` (${el.like_count})`}</button>
 										</form>
 									</div>
 								</div>
@@ -127,6 +130,7 @@ loadBtn.addEventListener('click', () => {
 	getData()
 })
 
+let newPostId = null
 postForm.addEventListener('submit', e => {
 	e.preventDefault()
 
@@ -140,6 +144,7 @@ postForm.addEventListener('submit', e => {
 		},
 		success: function(response) {
 			console.log(response)
+			newPostId = response.id
 			postsBox.insertAdjacentHTML('afterbegin', `
 				<div class="card mb-2">
 					<div class="card-body">
@@ -149,11 +154,11 @@ postForm.addEventListener('submit', e => {
 					<div class="card-footer">
 						<div class="row">
 							<div class="col-1">
-								<a href="#" class="btn btn-primary">Details</a>
+								<a href="${url}${response.id}" class="btn btn-primary">Details</a>
 							</div>
 							<div class="col-1">
 								<form data-form-id="${response.id}" class="like-unlike-forms">
-									<button href="#" id="like-unlike-${response.id}" class="btn btn-primary">Like (0)</button>
+									<button id="like-unlike-${response.id}" class="btn btn-primary">Like (0)</button>
 								</form>
 							</div>
 						</div>
@@ -184,5 +189,19 @@ closeBtns.forEach(btn => btn.addEventListener('click', () => {
 		dropzone.classList.add('not-visible')
 	}
 }))
+
+Dropzone.autoDiscover = false
+const myDropzone = new Dropzone('#my-dropzone', {
+	url: 'upload/',
+	init: function() {
+		this.on('sending', function(file, xhr, formData) {
+			formData.append('csrfmiddlewaretoken', csrftoken)
+			formData.append('new_post_id', newPostId)
+		})
+	},
+	maxFiles: DZ_MAXFILES,
+	maxFilesize: DZ_MAXFILE_SIZE_MB,
+	acceptedFiles: '.png, .jpg, .jpeg',
+})
 
 getData()
