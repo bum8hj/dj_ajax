@@ -12,9 +12,9 @@ my profile
 
 {% block content %}
 	<div id="alert-box"></div>
-	<h3>{{obj.user}}</h3>
+	<h3><b>{{obj.user}}</b></h3>
 	<hr>
-	<div class="text-center" id="avatar-box">
+	<div class="text-left mb-3" id="avatar-box">
 		<img src="{{obj.avatar.url}}" class="rounded" height="200px" width="auto" alt="{{obj.user.username}}">
 	</div>
 	<form id="profile-form">
